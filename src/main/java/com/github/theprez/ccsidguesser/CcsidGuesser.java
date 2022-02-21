@@ -320,7 +320,7 @@ public class CcsidGuesser {
         if (!isIBMi() || 0 > _ccsid) {
             _logger.println_verbose("Skipping setting of CCSID tag");
         }
-        _logger.printfln_verbose("Trying to set CCSID of file '%s' to " + _ccsid);
+        _logger.printfln_verbose("Trying to set CCSID of file '%s' to %d", _file.getName(),_ccsid);
         final Process p = Runtime.getRuntime().exec(new String[] { "/QOpenSys/usr/bin/setccsid", "" + _ccsid, _file.getAbsolutePath() });
         ProcessLauncher.pipeStreamsToCurrentProcess("SETCCSID", p, _logger);
         _logger.println_verbose("CCSID set rc=" + p.waitFor());
