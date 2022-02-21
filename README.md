@@ -17,3 +17,7 @@ Usage: java -jar ccsidguesser.jar  [options] <file>
         ccsid:        Show the CCSID only
         enc:          Show the CCSID and encoding name
 ```
+
+# Installation
+
+Simply download the latest `ccsidguesser.jar` from [the Releases page](https://github.com/ThePrez/CcsidGuesser/releases).
