@@ -193,7 +193,7 @@ public class CcsidGuesser {
             logger.println_err("ERROR: No file specified");
             printUsageAndExit();
         }
-        final CcsidConfidenceScorer tracker = new CcsidConfidenceScorer(sampleSize);
+        final CcsidConfidenceScorer tracker = new CcsidConfidenceScorer();
         try (FileInputStream fis = new FileInputStream(file)) {
             final byte[] sampleData = new byte[sampleSize];
             Arrays.fill(sampleData, (byte) 0x00);

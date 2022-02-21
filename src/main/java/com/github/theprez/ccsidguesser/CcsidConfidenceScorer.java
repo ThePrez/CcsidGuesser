@@ -11,11 +11,6 @@ import java.util.Map.Entry;
 import java.util.TreeMap;
 
 public class CcsidConfidenceScorer {
-    private final int m_sampleSize;
-
-    public CcsidConfidenceScorer(final int _sampleSize) {
-        m_sampleSize = _sampleSize;
-    }
 
     public static class Confidence implements Comparable<Confidence> {
 
@@ -109,7 +104,6 @@ public class CcsidConfidenceScorer {
         if (type != Character.UNASSIGNED) {
             return 0.1;
         }
-        final int cint = _c;
         return 0.0;
     }
 
