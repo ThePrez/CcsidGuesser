@@ -115,8 +115,7 @@ public class CcsidGuesser {
             final SortedMap<String, Charset> supportedCharsets = Charset.availableCharsets();
             final LinkedHashSet<String> ccsidList = new LinkedHashSet<String>();
             final String[] preferredCcsids = new String[] { "UTF8", "ISO8859_1", "ISO8859_2", "ISO8859_3", "ISO8859_4", "ISO8859_5", "ISO8859_6", "ISO8859_7", "ISO8859_8", "ISO8859_9", "ISO8859_10", "ISO8859_11", "ISO8859_12", "ISO8859_14", "Cp1250", "Cp1251", "Cp1252", "Cp1253", "Cp1254", "Cp1255", "Cp1256", "Cp1257",
-                    "Cp037"
-
+                    "Cp037", "Cp1140", "Cp273", "Cp1141", "Cp277", "Cp1142", "Cp278", "Cp1143", "Cp280", "Cp1144", "Cp284", "Cp1145", "Cp285", "Cp1146", "Cp297", "Cp1147", "Cp500", "Cp1148", "Cp871", "Cp1149", "Cp1047", "Cp924"
             };
             final String taggedEncoding = getTaggedEncoding(logger, new File(file));
             if (StringUtils.isNonEmpty(taggedEncoding)) {
