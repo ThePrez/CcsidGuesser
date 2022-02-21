@@ -240,8 +240,8 @@ public class CcsidGuesser {
         final String usage = "Usage: java -jar ccsidguesser.jar  [options] <file>\n"
                                 + "\n"
                                 + "    Valid options include:\n"
-                                + "        --show=top/topN/all: how many CCSID guesses to show (default is 'top1', which shows the"
-                                + "                             top 1 result. A value of 'top' shows the top guess and some number"
+                                + "        --show=top/topN/all: how many CCSID guesses to show (default is 'top1', which shows the\n"
+                                + "                             top 1 result. A value of 'top' shows the top guess and some number\n"
                                 + "                             of very-near guesses\n"
                                 + "        --format=<format>:   output format (default is 'ccsid')\n"
                                 + autoFixOpt
