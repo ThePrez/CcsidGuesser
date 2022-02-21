@@ -37,5 +37,5 @@ java -jar ccsidguesser.jar myfile.txt  --show=top5 --format=enc
 
 Automatically set `myfile.txt`'s CCSID tag to match the best guess for the file's contents:
 ```
-java -jar ccsidguesser.jar myfile.txt  --show=top5 --format=enc
+java -jar ccsidguesser.jar myfile.txt  --autofix
 ```
