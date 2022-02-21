@@ -236,7 +236,7 @@ public class CcsidGuesser {
 
     private static void printUsageAndExit() {
         // @formatter:off
-        final String autoFixOpt = isIBMi()?"        --autofix            automatically and unapologetically change the CCSID tag of the file (IBM i only)\n":"";
+        final String autoFixOpt = isIBMi()?"        --autofix            automatically and unapologetically change the CCSID tag of the file\n                             to match the top guess for the file's contents (IBM i only)\n":"";
         final String usage = "Usage: java -jar ccsidguesser.jar  [options] <file>\n"
                                 + "\n"
                                 + "    Valid options include:\n"
