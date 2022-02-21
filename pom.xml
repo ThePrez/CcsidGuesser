@@ -3,7 +3,7 @@
 
   <groupId>io.github.theprez</groupId>
   <artifactId>ccsidguesser</artifactId>
-  <version>0.0.2</version>
+  <version>0.0.3</version>
   <name>CCSID Guesser</name>
   <description>A utility for guessing the CCSID of files (based on file contents)</description>
   <url>https://github.com/ThePrez/CcsidGuesser</url>
