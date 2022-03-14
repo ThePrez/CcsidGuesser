@@ -133,7 +133,7 @@ public class CcsidGuesser {
         args.addAll(Arrays.asList(_args));
 
         final AppLogger logger = AppLogger.getSingleton(args.remove("-v"));
-        String file = null;
+        String fileStr = null;
         boolean autofix = false;
         ConvertMode convertMode = ConvertMode.NONE;
         OutputFormat outputFormat = OutputFormat.CCSID;
@@ -180,20 +180,21 @@ public class CcsidGuesser {
             } else if (remainingArg.equalsIgnoreCase("--help") || remainingArg.equalsIgnoreCase("-h")) {
                 printUsageAndExit();
             } else if (!remainingArg.startsWith("-")) {
-                if (null != file) {
+                if (null != fileStr) {
                     logger.println_err("ERROR: Only one file at a time is supported");
                     printUsageAndExit();
                 }
-                file = remainingArg;
+                fileStr = remainingArg;
             } else {
                 logger.println_warn("WARNING: Argument '" + remainingArg + "' unrecognized and will be ignored");
             }
         }
-        if (null == file) {
+        if (null == fileStr) {
             logger.println_err("ERROR: No file specified");
             printUsageAndExit();
         }
         final CcsidConfidenceScorer tracker = new CcsidConfidenceScorer();
+        final File file = new File(fileStr);
         try (FileInputStream fis = new FileInputStream(file)) {
             final byte[] sampleData = new byte[sampleSize];
             Arrays.fill(sampleData, (byte) 0x00);
@@ -207,7 +208,7 @@ public class CcsidGuesser {
             final LinkedHashSet<String> ccsidList = new LinkedHashSet<String>();
             final String[] preferredCcsids = new String[] { "UTF8", "UTF-8", "ISO8859_1", "ISO8859_2", "ISO8859_3", "ISO8859_4", "ISO8859_5", "ISO8859_6", "ISO8859_7", "ISO8859_8", "ISO8859_9", "ISO8859_10", "ISO8859_11", "ISO8859_12", "ISO8859_14", "Cp1250", "Cp1251", "Cp1252", "Cp1253", "Cp1254", "Cp1255", "Cp1256",
                     "Cp1257", "Cp037", "Cp1140", "Cp273", "Cp1141", "Cp277", "Cp1142", "Cp278", "Cp1143", "Cp280", "Cp1144", "Cp284", "Cp1145", "Cp285", "Cp1146", "Cp297", "Cp1147", "Cp500", "Cp1148", "Cp871", "Cp1149", "Cp1047", "Cp924" };
-            final Entry<Integer, String> taggedEncoding = getTaggedCcsidAndEncoding(logger, new File(file));
+            final Entry<Integer, String> taggedEncoding = getTaggedCcsidAndEncoding(logger, new File(fileStr));
             if (null != taggedEncoding && StringUtils.isNonEmpty(taggedEncoding.getValue())) {
                 ccsidList.add(taggedEncoding.getValue());
             }
@@ -271,13 +272,13 @@ public class CcsidGuesser {
             }
             logger.println_verbose("top guess was " + topGuess);
             if (autofix) {
-                setCcsidTag(logger, new File(file), topGuess);
+                setCcsidTag(logger, new File(fileStr), topGuess);
             }
             if (ConvertMode.NONE != convertMode) {
                 if (1208 == topGuess) {
                     logger.println("File already looks like UTF-8");
                 } else {
-                    convertFileToUTF8(logger, convertMode, topGuess, new File(file));
+                    convertFileToUTF8(logger, convertMode, topGuess, new File(fileStr));
                 }
             }
 
