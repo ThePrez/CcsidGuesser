@@ -198,7 +198,7 @@ public class CcsidGuesser {
             final byte[] sampleData = new byte[sampleSize];
             Arrays.fill(sampleData, (byte) 0x00);
             final int bytesRead = fis.read(sampleData);
-            if (0 >= bytesRead) {
+            if (0 > bytesRead) {
                 logger.println_err("ERROR: unable to read file");
                 throw new IOException("Unable to read file");
             }
