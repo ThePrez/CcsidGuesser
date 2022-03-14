@@ -26,7 +26,7 @@ import com.github.theprez.jcmdutils.StringUtils;
 public class CcsidGuesser {
 
     enum ConvertMode {
-        DOTUTF8, INPLACE, NONE
+        DOTBAK, DOTUTF8, INPLACE, NONE
     }
 
     enum OutputFormat {
@@ -66,7 +66,7 @@ public class CcsidGuesser {
                 final File utf8File = new File(_file.getAbsolutePath() + ".utf8");
                 out = new OutputStreamWriter(new BufferedOutputStream(new FileOutputStream(utf8File), 1024 * 1024), "UTF-8");
                 tagFile = utf8File;
-            } else {
+            } else if (ConvertMode.DOTBAK == convertMode || ConvertMode.INPLACE == convertMode) {
                 final File destFile = new File(_file.getAbsolutePath());
                 final File backupFile = new File(_file.getAbsolutePath() + ".bak");
                 if (!_file.renameTo(backupFile)) {
@@ -76,6 +76,11 @@ public class CcsidGuesser {
                 in = new InputStreamReader(new BufferedInputStream(new FileInputStream(backupFile), 1024 * 1024), CcsidUtils.ccsidToEncoding(_ccsid, true));
                 out = new OutputStreamWriter(new BufferedOutputStream(new FileOutputStream(destFile), 1024 * 1024), "UTF-8");
                 tagFile = destFile;
+                if (ConvertMode.INPLACE == convertMode) {
+                    backupFile.deleteOnExit();
+                }
+            } else {
+                throw new RuntimeException("unsupported conversion mode: " + convertMode.name());
             }
             final char[] cbuf = new char[1024 * 1024];
             int bytesRead = -1;
@@ -308,7 +313,8 @@ public class CcsidGuesser {
                                + "\n"
                                + "    Valid convert modes include:\n"
                                + "         none :        perform no conversion\n"
-                               + "         inplace:      Convert the file in-place (creates a .bak with the old contents)\n"
+                               + "         inplace:      Convert the file in-place (no backup is created, use at your own risk!)\n"
+                               + "         dotbak:       Convert the file in-place (creates a .bak with the old contents)\n"
                                + "         dotutf8:      Create a new file that is UTF-8 (extension will be .utf8)\n"
                                 + "\n"
                                 ;
